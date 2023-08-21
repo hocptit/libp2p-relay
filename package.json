@@ -4,7 +4,8 @@
   "description": "Connect a browser to another browser",
   "type": "module",
   "scripts": {
-    "relay": "node relay.js"
+    "relay": "node relay.js",
+    "start": "node relay.js"
   },
   "dependencies": {
     "@chainsafe/libp2p-noise": "^13.0.0",
