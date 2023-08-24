@@ -5,6 +5,7 @@ import { circuitRelayServer } from 'libp2p/circuit-relay'
 import { webSockets } from '@libp2p/websockets'
 import { identifyService } from 'libp2p/identify'
 import { createFromJSON } from "@libp2p/peer-id-factory";
+import { yamux } from '@chainsafe/libp2p-yamux'
 const PORT = process.env.PORT || 51986
 
 async function createServer() {
@@ -19,14 +20,28 @@ async function createServer() {
             listen: [`/ip4/127.0.0.1/tcp/${PORT}/ws`]
         },
         transports: [
-            webSockets(),
+            webSockets()
         ],
-        connectionEncryption: [noise()],
-        streamMuxers: [mplex()],
+        connectionEncryption: [
+            noise()
+        ],
+        streamMuxers: [
+            yamux(), mplex()
+        ],
         services: {
             identify: identifyService(),
             relay: circuitRelayServer()
+        },
+        relay: {
+            enabled: true,
+            hop: {
+                enabled: true
+            },
+            advertise: {
+                enabled: true,
+            }
         }
+
     })
     console.log(`Node started with id ${server.peerId.toString()}`)
     console.log('Listening on:')
