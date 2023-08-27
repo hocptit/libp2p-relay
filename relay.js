@@ -1,11 +1,11 @@
 import { mplex } from "@libp2p/mplex"
 import { createLibp2p } from "libp2p"
 import { noise } from "@chainsafe/libp2p-noise"
-import { circuitRelayServer } from 'libp2p/circuit-relay'
-import { webSockets } from '@libp2p/websockets'
-import { identifyService } from 'libp2p/identify'
+import { circuitRelayServer } from "libp2p/circuit-relay"
+import { webSockets } from "@libp2p/websockets"
+import { identifyService } from "libp2p/identify"
 import { createFromJSON } from "@libp2p/peer-id-factory";
-import { yamux } from '@chainsafe/libp2p-yamux'
+import { yamux } from "@chainsafe/libp2p-yamux"
 const PORT = process.env.PORT || 51986
 
 async function createServer() {
@@ -44,14 +44,14 @@ async function createServer() {
 
     })
     console.log(`Node started with id ${server.peerId.toString()}`)
-    console.log('Listening on:')
+    console.log("Listening on:")
     server.getMultiaddrs().forEach((ma) => console.log(ma.toString()))
     return server;
 }
 
 async function main() {
-    console.log('Starting relay node...')
-    let server; 
+    console.log("Starting relay node...")
+    let server;
     server = await createServer();
     await server.start();
 }
