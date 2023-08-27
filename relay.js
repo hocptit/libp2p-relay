@@ -31,8 +31,9 @@ async function createServer() {
         services: {
             identify: identifyService(),
             relay: circuitRelayServer({
-                maxOutboundStopStreams: 10000,
-                maxInboundStopStreams: 10000,
+                discoverRelays: 100,
+                maxInboundHopStreams: 10000,
+                maxOutboundHopStreams: 10000,
             })
         },
         relay: {
