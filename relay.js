@@ -1,7 +1,7 @@
 import { mplex } from "@libp2p/mplex"
 import { createLibp2p } from "libp2p"
 import { noise } from "@chainsafe/libp2p-noise"
-import { circuitRelayServer } from 'libp2p/circuit-relay'
+import { circuitRelayServer, circuitRelayTransport } from 'libp2p/circuit-relay'
 import { webSockets } from '@libp2p/websockets'
 import { identifyService } from 'libp2p/identify'
 import { createFromJSON } from "@libp2p/peer-id-factory";
@@ -20,7 +20,12 @@ async function createServer() {
             listen: [`/ip4/127.0.0.1/tcp/${PORT}/ws`]
         },
         transports: [
-            webSockets()
+            webSockets(),
+            circuitRelayTransport({
+                discoverRelays: 1,
+                maxInboundStopStreams: 10000,
+                maxOutboundStopStreams: 10000
+            })
         ],
         connectionEncryption: [
             noise()
