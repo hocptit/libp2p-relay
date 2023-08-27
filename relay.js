@@ -7,7 +7,7 @@ import { identifyService } from 'libp2p/identify'
 import { createFromJSON } from "@libp2p/peer-id-factory";
 import { yamux } from '@chainsafe/libp2p-yamux'
 const PORT = process.env.PORT || 51986
-
+import { tcp } from '@libp2p/tcp'
 async function createServer() {
     const id = await createFromJSON({
         "id": "QmUDSANiD1VyciqTgUBTw9egXHAtmamrtR1sa8SNf4aPHa",
@@ -21,10 +21,9 @@ async function createServer() {
         },
         transports: [
             webSockets(),
+            tcp(),
             circuitRelayTransport({
-                discoverRelays: 1,
-                maxInboundStopStreams: 10000,
-                maxOutboundStopStreams: 10000
+                discoverRelays: 1
             })
         ],
         connectionEncryption: [
