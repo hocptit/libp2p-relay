@@ -13,7 +13,7 @@
     "@libp2p/mplex": "^9.0.0",
     "@libp2p/websockets": "^7.0.0",
     "@multiformats/multiaddr": "^12.1.5",
-    "libp2p": "0.45.8",
+    "libp2p": "^0.46",
     "peer-id": "^0.16.0"
   },
   "engines": {
