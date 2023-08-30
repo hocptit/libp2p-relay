@@ -1,6 +1,7 @@
 import { noise } from '@chainsafe/libp2p-noise'
 import { yamux } from '@chainsafe/libp2p-yamux'
 import { mplex } from '@libp2p/mplex'
+import * as filters from '@libp2p/websockets/filters'
 import { webSockets } from '@libp2p/websockets'
 import { createLibp2p } from 'libp2p'
 import { circuitRelayServer } from 'libp2p/circuit-relay'
@@ -20,7 +21,9 @@ async function createServer() {
             // announce: ['/dns4/auto-relay.libp2p.io/tcp/443/wss/p2p/QmWDn2LY8nannvSWJzruUYoLZ4vV83vfCBwd8DipvdgQc3']
         },
         transports: [
-            webSockets()
+            webSockets({
+                filter: filters.all
+            })
         ],
         connectionEncryption: [
             noise()
